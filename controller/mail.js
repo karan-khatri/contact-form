@@ -6,9 +6,9 @@ const sendMail = (req, res) => {
 
   var mailOptions = {
     from: `"${name}" <${email}>`,
-    to: 'khatrikamlesh23@gmail.com',
-    subject: 'Portfolio Contact Form',
-    html: `<p>${message}</p>`,
+    to: process.env.RECEIVER, //Receiver Email Address
+    subject: 'Portfolio Contact Form', //Subject of the Email
+    html: `<p>${message}</p>`, //Email content
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
