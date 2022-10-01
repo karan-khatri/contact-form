@@ -4,6 +4,7 @@ config();
 import cors from 'cors';
 import helmet from 'helmet';
 import xss from 'xss-clean';
+import rateLimiter from 'express-rate-limit';
 
 import 'express-async-errors';
 
@@ -16,7 +17,15 @@ import mail from './routes/mail.js';
 import express from 'express';
 const app = express();
 
+app.set('trust proxy', 1);
 app.use(express.json());
+
+app.use(
+  rateLimiter({
+    windowMs: 5 * 60 * 1000,
+    max: 100,
+  })
+);
 app.use(cors());
 app.use(helmet());
 app.use(xss());
