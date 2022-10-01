@@ -4,12 +4,13 @@ import CustomAPIError from '../errors/CustomAPIError.js';
 const sendMail = (req, res) => {
   const { name, email, message } = req.body;
 
-  var mailOptions = {
+  const mailOptions = {
     from: `"${name}" <${email}>`,
     to: process.env.RECEIVER, //Receiver Email Address
     subject: 'Portfolio Contact Form', //Subject of the Email
-    html: `<p>${message}</p>`, //Email content
+    html: `<h3>Name: ${name}</h3> <h3>Email: ${email}</h3> <p style="font-weight:bold">Message: <span style="font-weight:normal">${message}</span></p>`, //Email content
   };
+  console.log(name, email, message);
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
